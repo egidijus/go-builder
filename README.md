@@ -10,6 +10,8 @@ git clone https://github.com/egidijus/go-builder
 
 cd go-builder
 
+vim gowork/input_repos
+
 ./run_things.sh
 
 ```
