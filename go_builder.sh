@@ -28,7 +28,11 @@ rm -rf $GOPACKAGES/*
 cat $INPUT_REPOS | while read package
 do
   cd $GOPACKAGES
-  go get $package && cd $OUTPUT_BINARIES && go build $package
+  go get $package && \
+  cd $OUTPUT_BINARIES && \
+  GOOS=windows GOARCH=amd64 go build -o ${package}-windows.exe ${package} && mv ${package}-windows.exe ./$(basename ${package})-windows.exe
+  GOOS=linux GOARCH=amd64 go build -o ${package}-linux ${package} && mv ${package}-linux ./$(basename ${package})-linux
+  GOOS=darwin GOARCH=amd64 go build -o ${package}-darwin ${package} && mv ${package}-darwin ./$(basename ${package})-darwin
 done
 set +x
 
